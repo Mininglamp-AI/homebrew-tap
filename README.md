@@ -1,18 +1,18 @@
-# HanningWang’s Homebrew Tap
+# Mininglamp-AI’s Homebrew Tap
 
-Homebrew tap for shipping my CLI tools
+Homebrew tap for shipping CLI tools
 
 ## Install
 
 ```bash
-brew tap HanningWang/tap
+brew tap Mininglamp-AI/tap
 ```
 
 ## Install Packages
 
 ```bash
 # formula
-brew install HanningWang/tap/<name>
+brew install Mininglamp-AI/tap/<name>
 ```
 
 ## Packages
