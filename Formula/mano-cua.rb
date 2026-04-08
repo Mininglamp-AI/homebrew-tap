@@ -1,9 +1,9 @@
 class ManoCua < Formula
   desc "VLA Desktop Automation Client"
   homepage "https://github.com/Mininglamp-AI/mano-skill"
-  url "https://github.com/Mininglamp-AI/mano-skill/archive/refs/tags/v1.0.3.tar.gz"
-  sha256 "fbd68cbdd1322f3faae75b773e40a25271f94fe4e9a47b353b8f694462fcdb6f"
-  version "1.0.3"
+  url "https://github.com/Mininglamp-AI/mano-skill/archive/refs/tags/v1.0.6.tar.gz"
+  sha256 "82a536d458663436e0bf36fd07e5a383ad0c136a196fc49097b5e42b86137f15"
+  version "1.0.6"
 
   depends_on "python@3.13"
   depends_on "python-tk@3.13"
