@@ -1,4 +1,4 @@
-# Mininglamp-AI’s Homebrew Tap
+# Mininglamp-AI's Homebrew Tap
 
 Homebrew tap for shipping CLI tools
 
@@ -19,4 +19,5 @@ brew install Mininglamp-AI/tap/<name>
 
 ### Formula
 
-- `mano-cua` Computer use for GUI automation tasks via VLA models, driven by user's natrual language.
+- `mano-afk` — Desktop automation CLI with cloud (Claude CUA) and local (Mano-P) modes.
+- `mano-cua` — Computer use for GUI automation tasks via VLA models, driven by user's natural language.
