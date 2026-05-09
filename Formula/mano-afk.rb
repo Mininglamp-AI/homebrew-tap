@@ -2,7 +2,7 @@ class ManoAfk < Formula
   desc "Mano AFK — Desktop Automation CLI (Cloud + Local VLM)"
   homepage "https://github.com/Mininglamp-AI/mano-afk"
   url "https://github.com/Mininglamp-AI/mano-afk/archive/refs/tags/v0.2.8.tar.gz"
-  sha256 "d75b528c50de293b677e60cf1003dee3ae56acaf234c7de75ff1db52de4ed201"
+  sha256 "fc3019ced20f952317c7eb249827ecde563064523975ef4d29619d37797ec1b0"
   version "0.2.8"
 
   depends_on "python@3.13"
