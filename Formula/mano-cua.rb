@@ -1,9 +1,9 @@
 class ManoCua < Formula
   desc "VLA Desktop Automation Client"
   homepage "https://github.com/Mininglamp-AI/mano-skill"
-  url "https://github.com/Mininglamp-AI/mano-skill/archive/refs/tags/v1.0.19.tar.gz"
-  sha256 "a88285a8f7d1abfe5f4c54de824a0b0b06db9fd2873111f59fe4ae6e577cd22c"
-  version "1.0.19"
+  url "https://github.com/Mininglamp-AI/mano-skill/archive/refs/tags/v1.0.20.tar.gz"
+  sha256 "32c77d854fcbefef4d4677f00fc45fde392241c75753b796b4d8109d77428a6a"
+  version "1.0.20"
 
   depends_on "python@3.13"
   depends_on "python-tk@3.13"
@@ -15,8 +15,18 @@ class ManoCua < Formula
     (venv/"src").install Dir["visual"]
     (bin/"mano-cua").write <<~SH
       #!/bin/bash
-      export PYTHONPATH="#{venv}/src"
-      exec "#{venv}/bin/python3" "#{venv}/src/visual/vla.py" "$@"
+      SRC="#{venv}/src"
+      export PYTHONPATH="$SRC"
+      CUSTOM_PY=""
+      CFG="$HOME/.mano/config.json"
+      if [ -f "$CFG" ]; then
+        CUSTOM_PY=$(python3 -c "import json; print(json.load(open('$CFG')).get('python-path',''))" 2>/dev/null)
+      fi
+      if [ -n "$CUSTOM_PY" ] && [ -f "$CUSTOM_PY" ]; then
+        exec "$CUSTOM_PY" "$SRC/visual/vla.py" "$@"
+      else
+        exec "#{venv}/bin/python3" "$SRC/visual/vla.py" "$@"
+      fi
     SH
   end
 
