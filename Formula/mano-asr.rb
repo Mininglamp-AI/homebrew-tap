@@ -1,4 +1,6 @@
 class ManoAsr < Formula
+    include Language::Python::Virtualenv
+
     desc "本地语音转写服务，基于 MLX，针对 Apple Silicon 优化"
     homepage "https://github.com/Mininglamp-AI/mano-asr"
     url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.0.tar.gz"
