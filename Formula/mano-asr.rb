@@ -5,6 +5,12 @@ class ManoAsr < Formula
     sha256 "81bed69e5d847972c499558a943282b7727a35b59872af940e47522043686c65"
     license "MIT"
 
+    bottle do
+      root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.0"
+      sha256 cellar: :any_skip_relocation, arm64_tahoe:
+  "c774bbc14c898c2eb4385b36baa268829910f28f747255d8536e2829d069372d"
+    end
+
     depends_on "ffmpeg"
     depends_on "python@3.13"
     depends_on :macos => :monterey
