@@ -7,7 +7,7 @@ class ManoAsr < Formula
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "fb7f6d249d38abe5693a1e94da01c63c5daeab8a316a70133498425ecb860a10"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "ec5fbe2acd69b36053bbd56d8fdfcd644879cb201785641f93988f4b2a7cb39d"
   end
 
   depends_on "ffmpeg"
