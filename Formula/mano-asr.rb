@@ -1,5 +1,5 @@
 class ManoAsr < Formula
-  desc "本地语音转写服务，基于 MLX，针对 Apple Silicon 优化"
+  desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/mano-asr"
   url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.1.tar.gz"
   sha256 "409210c026895359598dbc8de9cf5f06ff23c9a2e5866d0f140d01e984f88d86"
@@ -34,20 +34,20 @@ class ManoAsr < Formula
 
   def caveats
     <<~EOS
-      mano-asr 安装完成！
+      mano-asr installed successfully!
 
-      模型将在首次运行时自动下载（约 1-2 GB）。
+      Models will be downloaded automatically on first run (~1-2 GB).
 
-      快速开始:
-        mano-asr start              # 启动服务（首次自动下载模型）
-        mano-asr transcribe a.wav   # 转写音频
-        mano-asr model list         # 查看模型
+      Quick start:
+        mano-asr start              # Start service (auto-downloads models on first run)
+        mano-asr transcribe a.wav   # Transcribe audio
+        mano-asr model list         # List models
 
-      服务管理:
+      Service management:
         mano-asr start / stop / restart / status
 
-      模型存储: ~/.mano-asr/models/
-      服务地址: http://127.0.0.1:8787
+      Model storage: ~/.mano-asr/models/
+      Service address: http://127.0.0.1:8787
     EOS
   end
 
