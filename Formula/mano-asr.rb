@@ -2,13 +2,13 @@ class ManoAsr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/mano-asr"
   url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.6.tar.gz"
-  sha256 "74f623a24ba8890f57db2c3d246f56bbe69d734579a18e008ececd3206e7c9e6"
+  sha256 "3d8a01c2adcd72ef24d4fd813b446f0a37b832c72695b15752864c1d545099e0"
   license "MIT"
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.6"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d29897466ee2fa4bb959562f33d5dd37e7fe256fc0dab9832a7d7053f3a99b8f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "fa4c7a70d5d27527888f87dd12603e329e0d5e740cbd47f5aef1e817eb12265d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "36f61ed9b5cf032d82e9e43dadf9340eec0929571f4b5505e67b31ba64662d95"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "256dbdf439e870eaff1aadf36e12d7aba91408ad763c71758dde99d3d596f20c"
   end
 
   depends_on "ffmpeg"
@@ -40,6 +40,7 @@ class ManoAsr < Formula
   end
 
   def post_install
+    return if ENV["HOMEBREW_BUILDING_BOTTLE"]
     venv = libexec/"venv"
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--ignore-installed", "torch", "torchaudio"
   end
