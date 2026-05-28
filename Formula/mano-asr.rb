@@ -2,13 +2,13 @@ class ManoAsr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/mano-asr"
   url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.6.tar.gz"
-  sha256 "69517df29cda966567a8f602500f7d3878983504b31758da651282fa0973a585"
+  sha256 "74f623a24ba8890f57db2c3d246f56bbe69d734579a18e008ececd3206e7c9e6"
   license "MIT"
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.6"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e3abf96087ea89acb88c2b642ec7fdc0a8614993cac34addd668ee3fb96ef071"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "ddae58987aa646d816102c89bd2c59711a8fc36df8a3b9ef3224c48cb2b8f271"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d29897466ee2fa4bb959562f33d5dd37e7fe256fc0dab9832a7d7053f3a99b8f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "fa4c7a70d5d27527888f87dd12603e329e0d5e740cbd47f5aef1e817eb12265d"
   end
 
   depends_on "ffmpeg"
@@ -41,7 +41,7 @@ class ManoAsr < Formula
 
   def post_install
     venv = libexec/"venv"
-    system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "torch", "torchaudio"
+    system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--ignore-installed", "torch", "torchaudio"
   end
 
   def caveats
