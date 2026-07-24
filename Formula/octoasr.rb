@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
-  homepage "https://github.com/Mininglamp-AI/mano-asr"
-  url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.18.tar.gz"
-  sha256 "04e0329595bcfe08558df4eed68022cc57fe83e2ffa58ce7ddafcb8f461b2419"
+  homepage "https://github.com/Mininglamp-AI/octoasr"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.19.tar.gz"
+  sha256 "b5bb85cd772d224a050d29aaff4145ca3b5dfde5762e2cb36f03d9854162f35a"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.18"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "de41f4473e7fd800332d889e115386d8168a591bf041da92e6be1a156d9b8efa"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "5ff6ab4e7fdd5a9e46743bd105a98b7c05c486bb329ca1cded5d99fae13c7836"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.19"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9ab32def083f2aaa899d4db3ffaede7a0f85df598f903aa0a6a860a41c694544"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "c4050963a3020b1af548cb4ad28bb90292e18ac9c306a3c6ba85bf0280877e5c"
   end
 
   depends_on "ffmpeg"
@@ -34,19 +34,19 @@ class Octoasr < Formula
           SCRIPT_PATH="$(readlink -f "$0" 2>/dev/null || readlink "$0")"
       fi
       FORMULA_PREFIX="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
-      exec "${FORMULA_PREFIX}/libexec/venv/bin/python3" -m octoasr.cli.main "$@"
+      exec "${FORMULA_PREFIX}/libexec/venv/bin/python3" -m octoasr.cli.main
     SH
     chmod 0755, bin/"octoasr"
   end
 
   def caveats
     <<~EOS
-      octoasr installed successfully!
+      OctoASR installed successfully!
 
       Models will be downloaded automatically on first run (~1-2 GB).
 
       Quick start:
-        octoasr start              # Start service (auto-downloads models on first run)
+        octoasr start              # Start service (auto-downloads models on
         octoasr transcribe a.wav   # Transcribe audio
         octoasr model list         # List models
 
@@ -59,7 +59,7 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.18", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.19", shell_output("#{bin}/octoasr --version")
   end
 end
 
