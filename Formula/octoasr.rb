@@ -28,7 +28,7 @@ class Octoasr < Formula
           SCRIPT_PATH="$(readlink -f "$0" 2>/dev/null || readlink "$0")"
       fi
       FORMULA_PREFIX="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
-      exec "${FORMULA_PREFIX}/libexec/venv/bin/python3" -m octoasr.cli.main
+      exec "${FORMULA_PREFIX}/libexec/venv/bin/python3" -m octoasr.cli.main "$@"
     SH
     chmod 0755, bin/"octoasr"
   end
