@@ -63,7 +63,3 @@ class Octoasr < Formula
   end
 end
 
-  test do
-    assert_match "0.1.18", shell_output("#{bin}/octoasr --version")
-  end
-end
