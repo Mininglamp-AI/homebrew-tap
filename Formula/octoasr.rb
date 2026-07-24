@@ -2,7 +2,7 @@ class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/mano-asr"
   url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.18.tar.gz"
-  sha256 "placeholder"
+  sha256 "f6e19a93178613e048368007667ae7d79a1c4b12e512c69281b05dcd3463b024"
   license "MIT"
 
   depends_on "ffmpeg"
