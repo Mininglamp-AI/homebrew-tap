@@ -2,8 +2,14 @@ class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/mano-asr"
   url "https://github.com/Mininglamp-AI/mano-asr/archive/refs/tags/v0.1.18.tar.gz"
-  sha256 "f6e19a93178613e048368007667ae7d79a1c4b12e512c69281b05dcd3463b024"
+  sha256 "04e0329595bcfe08558df4eed68022cc57fe83e2ffa58ce7ddafcb8f461b2419"
   license "MIT"
+
+  bottle do
+    root_url "https://github.com/Mininglamp-AI/mano-asr/releases/download/v0.1.18"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "de41f4473e7fd800332d889e115386d8168a591bf041da92e6be1a156d9b8efa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "5ff6ab4e7fdd5a9e46743bd105a98b7c05c486bb329ca1cded5d99fae13c7836"
+  end
 
   depends_on "ffmpeg"
   depends_on "python@3.13"
@@ -32,6 +38,30 @@ class Octoasr < Formula
     SH
     chmod 0755, bin/"octoasr"
   end
+
+  def caveats
+    <<~EOS
+      octoasr installed successfully!
+
+      Models will be downloaded automatically on first run (~1-2 GB).
+
+      Quick start:
+        octoasr start              # Start service (auto-downloads models on first run)
+        octoasr transcribe a.wav   # Transcribe audio
+        octoasr model list         # List models
+
+      Service management:
+        octoasr start / stop / restart / status
+
+      Model storage: ~/.octoasr/models/
+      Service address: http://127.0.0.1:8787
+    EOS
+  end
+
+  test do
+    assert_match "0.1.18", shell_output("#{bin}/octoasr --version")
+  end
+end
 
   test do
     assert_match "0.1.18", shell_output("#{bin}/octoasr --version")
