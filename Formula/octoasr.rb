@@ -7,8 +7,8 @@ class Octoasr < Formula
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.20"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fdd264b1acca20646f2882bfb35e188dafb95aaa056599d493a058c99fde20a2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "37e9dbb172501694758d14a1aa8a2980729fe7caabccff91b35ee5d8544c8a2a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "06f905b430b321f5dcb5c7346a2a139637a6b48169bd99a609c32518572f66ab"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "371e96e7722f2965ddc173461e9e551543198d6d9bbe8a761be1c727d1ce95db"
   end
 
   depends_on "ffmpeg"
@@ -62,4 +62,3 @@ class Octoasr < Formula
     assert_match "0.1.20", shell_output("#{bin}/octoasr --version")
   end
 end
-
