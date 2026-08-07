@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.21.tar.gz"
-  sha256 "74023581f6316a681099290d92e298d54ea6fd0a1057ed0a571207d1da1c5afb"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.22.tar.gz"
+  sha256 "9d23d00a63e0629b697420ef8ef07947d75fa8e57f73a81afc444204b612d016"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.21"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "449c1424d41ac56a623521de523fdd5d55d277bc327e40e0b3f92f67a7f2325b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "ab1534e1f8e991d41a00479fb4871dd65eda6d2963d72a4f3ff211ad32347f73"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.22"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d0949e3387101c95a8fb362f0ec53351b1cf120595d7346055ef02b951841197"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "8e998f615c9ce0b9eee44c7bde1f0da890dad419729e8d806fea9ee8c37d12de"
   end
 
   depends_on "ffmpeg"
@@ -27,6 +27,11 @@ class Octoasr < Formula
     cp_r "utils", site_packages
     cp "server.py", site_packages
 
+    # The @mention judge reads its system prompt from docs/prompt.txt.
+    # docs/ is not otherwise packaged, so copy just this file next to core/.
+    (Pathname(site_packages)/"docs").mkpath
+    cp "docs/prompt.txt", "#{site_packages}/docs/prompt.txt"
+
     (bin/"octoasr").write <<~SH
       #!/bin/bash
       SCRIPT_PATH="$0"
@@ -43,7 +48,7 @@ class Octoasr < Formula
     <<~EOS
       OctoASR installed successfully!
 
-      Models will be downloaded automatically on first run (~1-2 GB).
+      ASR, VAD, and Mention models will be downloaded automatically on first run (several GB).
 
       Quick start:
         octoasr start              # Start service (auto-downloads models on first run)
@@ -59,6 +64,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.21", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.22", shell_output("#{bin}/octoasr --version")
   end
 end
