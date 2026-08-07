@@ -1,24 +1,24 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.22.tar.gz"
-  sha256 "9d23d00a63e0629b697420ef8ef07947d75fa8e57f73a81afc444204b612d016"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.25.tar.gz"
+  sha256 "4058e614fbc5f6adc4f17c83e3eeeeb9e64eef1ebeda7ec2cad8aafd8a7dd992"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.22"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d0949e3387101c95a8fb362f0ec53351b1cf120595d7346055ef02b951841197"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "8e998f615c9ce0b9eee44c7bde1f0da890dad419729e8d806fea9ee8c37d12de"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.25"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dff25030cb2bfccfe23ac8d477b52463148d9ad99227deebb7c7d82b4c3bbb80"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "27ee7e22a98ab4cbbb6acf81825f0c8d13996c642cface9c67ba84d51e74f2a5"
   end
 
   depends_on "ffmpeg"
-  depends_on "python@3.13"
+  depends_on "python@3.12"
   depends_on :macos => :monterey
   depends_on :arch => :arm64
 
   def install
     venv = libexec/"venv"
-    system Formula["python@3.13"].opt_bin/"python3.13", "-m", "venv", venv
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", venv
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--upgrade", "pip"
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", buildpath
 
@@ -64,6 +64,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.22", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.25", shell_output("#{bin}/octoasr --version")
   end
 end
