@@ -23,15 +23,15 @@ class Octoasr < Formula
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", buildpath
 
     # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
-    # begin
-    #   # system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
-    #   system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
-    #   system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
-    # rescue
-    #   opoo "Optional Cider install failed; continuing without Cider acceleration"
-    # end
-    system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
-    system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
+    begin
+      # system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
+      system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
+      system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
+    rescue
+      opoo "Optional Cider install failed; continuing without Cider acceleration"
+    end
+    # system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
+    # system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
 
     site_packages = Dir[venv/"lib/python*/site-packages"].first
     cp_r "core", site_packages
