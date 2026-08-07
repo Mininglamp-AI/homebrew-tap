@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.28.tar.gz"
-  sha256 "dfd04fb48410f08e16732bfb4e4e7c4e3101758db4317d1d9406580edb428d60"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.29.tar.gz"
+  sha256 "74db153cbdd34b8dc498b55639c175cd12b2ffd9a2bdf6240c14f026f074d0c7"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.28"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "de7b25b3a4b7e882c5e97653c62925cc762e85c439f39638fce94c06d48aabc9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "4688606d63d33740de044786d5ca0553daa41577fbfcbbacce8b1e35caf547f8"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.29"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4b621e75a92af515a53c43b9d866d4c7f33736cadbd9899f92bb023329914976"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "603a484c46072812b26cada8b77dacd3c5411c9a775943127524429d88e43ddb"
   end
 
   depends_on "ffmpeg"
@@ -24,7 +24,9 @@ class Octoasr < Formula
 
     # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
     begin
-      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
+      cider_dir = libexec/"cider"
+      system "git", "clone", "https://github.com/Mininglamp-AI/cider", cider_dir
+      system "env", "CIDER_FORCE_BUILD=1", venv/"bin/python", "-m", "pip", "install", "--retries", "3", "--timeout", "120", "-e", cider_dir
     rescue
       opoo "Optional Cider install failed; continuing without Cider acceleration"
     end
@@ -71,6 +73,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.28", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.29", shell_output("#{bin}/octoasr --version")
   end
 end
