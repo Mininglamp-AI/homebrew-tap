@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.30.tar.gz"
-  sha256 "f438821b3c26e73ad7cd6574c734fe841120d46433379c24da74d72944f66c0d"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.32.tar.gz"
+  sha256 "5094f2937f0f4c7da808c3ac2133cc63cc3ba3deda581805e24cf3469ec0df96"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.30"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "67677490f5f6c267ca4cac79fcb8c296d70f64d1a03f97fe48ed7ef91aed8fe3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "bfddce4128fde076fe8f66852fb4c42d2ead573876fd33399b3cd1e85312d5c9"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.32"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ed9853d97df573875f4dbdd65fb96c3494252c477c2df485e769edb8fe106e8e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "35696e383e25850ed00f91bd10daaafcdc539aa75ae8e952f1acea5f473f7c72"
   end
 
   depends_on "ffmpeg"
@@ -24,14 +24,10 @@ class Octoasr < Formula
 
     # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
     begin
-      # system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
-      system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
-      system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
+      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
     rescue
       opoo "Optional Cider install failed; continuing without Cider acceleration"
     end
-    # system "env", "CIDER_FORCE_BUILD=1", venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--no-binary", "mininglamp-cider", "mininglamp-cider==0.8.0"
-    # system venv/"bin/python", "-c", "import cider; assert cider.is_available(), 'Cider native extension is unavailable'"
 
     site_packages = Dir[venv/"lib/python*/site-packages"].first
     cp_r "core", site_packages
@@ -75,6 +71,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.30", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.32", shell_output("#{bin}/octoasr --version")
   end
 end
