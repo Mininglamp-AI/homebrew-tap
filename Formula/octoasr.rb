@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.27.tar.gz"
-  sha256 "6ed5105659bc89cc5dfc3d5499700f27bcda1101e93e4324af24a15fe04f82c7"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.28.tar.gz"
+  sha256 "dfd04fb48410f08e16732bfb4e4e7c4e3101758db4317d1d9406580edb428d60"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.27"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "44a3c9a26667447e2ed8f59ea2791320e734de7a85f5e224528ec618263c8b6e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "7e3c52f2533cf35ce611546ab8947b00d2b9c7c980ba09a980c5d532db94b2dd"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.28"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "de7b25b3a4b7e882c5e97653c62925cc762e85c439f39638fce94c06d48aabc9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "4688606d63d33740de044786d5ca0553daa41577fbfcbbacce8b1e35caf547f8"
   end
 
   depends_on "ffmpeg"
@@ -21,6 +21,13 @@ class Octoasr < Formula
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", venv
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--upgrade", "pip"
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", buildpath
+
+    # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
+    begin
+      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
+    rescue
+      opoo "Optional Cider install failed; continuing without Cider acceleration"
+    end
 
     site_packages = Dir[venv/"lib/python*/site-packages"].first
     cp_r "core", site_packages
@@ -64,6 +71,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.27", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.28", shell_output("#{bin}/octoasr --version")
   end
 end
