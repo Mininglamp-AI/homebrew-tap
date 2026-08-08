@@ -3,15 +3,15 @@ class Octoasr < Formula
 
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.40.tar.gz"
-  sha256 "8e1a7d8bd4a18d3e72408bc03f50b814ecc4c20d605711cada951fa9a60cef33"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.41.tar.gz"
+  sha256 "99b9fb8c62e5d9dd0aecd76701ba56f0f187403f64f99bc5f6b94a574d65bd53"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.40"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29c9dacafb7c1fadd5f32ed198c4b8c246244c24ea9448fb87b8cf70c0b76211"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "0601605efc48885bb7d3445d95c0e3692fc9993168ab9b702247928a51792712"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "7866f1ea6b499f0f4ee7bcda3dbbeaccb9b924fb211b6cb273d7cac0458a516b"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.41"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4c176d4d8986faffbd50e6201928d3a2f118a6ecd631b31f725a6d9e740b191a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "9ca753988eafee9dd663fb5413234263e908af28e63ea43cb68a8b16233e8e67"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "48dc37eed62dc3afce3da183259582144a00c5cac894e9a665407a1a7c5551c4"
   end
 
   depends_on "ffmpeg"
@@ -76,7 +76,7 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.40", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.41", shell_output("#{bin}/octoasr --version")
   end
 
   private
