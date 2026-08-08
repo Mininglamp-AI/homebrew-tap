@@ -1,14 +1,14 @@
 class Octoasr < Formula
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.34.tar.gz"
-  sha256 "2699db8bd82464d486a47bb089e3101155f60c236c57f697519dbf493f4fe490"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.35.tar.gz"
+  sha256 "426d9ce21cfec0336b9eaf387957f991002110162bf8afb7d3ae3aa18fbbc78e"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.34"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "97b4ce9cb54bcf1fa08e69d98d0046ab837e8166c72057ab2eb6e9c5fbb47178"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "8b232f495d95eefac0a0abed83e421fd7b3547aa47820cfc51f66ea0827e12cf"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.35"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "842535c45c624b6ae552a812557f9426adbe5c36901af41542dd7f88b556502d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "c60bfe51e3803857e496dc8758624069b651b1ed58e9e924d3f7550e850bfdc1"
   end
 
   depends_on "ffmpeg"
@@ -24,7 +24,7 @@ class Octoasr < Formula
 
     # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
     begin
-      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "pip install mininglamp-cider==0.8.0.post1"
+      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
     rescue
       opoo "Optional Cider install failed; continuing without Cider acceleration"
     end
@@ -71,6 +71,6 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.34", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.35", shell_output("#{bin}/octoasr --version")
   end
 end
