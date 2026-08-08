@@ -27,9 +27,9 @@ class Octoasr < Formula
 
     if cider_supported?
       system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==#{CIDER_VERSION}"
-      system venv/"bin/python3", "-c", "import cider; assert cider.is_available()"
+      system venv/"bin/python3", "-c", "import importlib.util; assert importlib.util.find_spec('cider.lib._cider_prim')"
     else
-      ohai "Skipping optional Cider acceleration; requires macOS 26 on Apple M5+"
+      ohai "Skipping optional Cider acceleration; requires macOS 26 on Apple Silicon"
     end
 
     site_packages = Dir[venv/"lib/python*/site-packages"].first
@@ -82,15 +82,6 @@ class Octoasr < Formula
   def cider_supported?
     OS.mac? &&
       MacOS.version.to_s.split(".").first.to_i >= 26 &&
-      Hardware::CPU.arm? &&
-      apple_chip_generation >= 5
-  end
-
-  def apple_chip_generation
-    brand = Utils.safe_popen_read("sysctl", "-n", "machdep.cpu.brand_string").strip
-    match = brand.match(/Apple M(\d+)/)
-    match ? match[1].to_i : 0
-  rescue
-    0
+      Hardware::CPU.arm?
   end
 end
