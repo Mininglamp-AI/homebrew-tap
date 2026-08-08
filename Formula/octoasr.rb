@@ -24,7 +24,7 @@ class Octoasr < Formula
 
     # Cider is optional acceleration; keep OctoASR installable if it is unavailable here.
     begin
-      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0"
+      system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==0.8.0.post1"
     rescue
       opoo "Optional Cider install failed; continuing without Cider acceleration"
     end
