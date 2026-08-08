@@ -7,6 +7,7 @@ class Octoasr < Formula
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.32"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "ed9853d97df573875f4dbdd65fb96c3494252c477c2df485e769edb8fe106e8e"
     sha256 cellar: :any_skip_relocation, arm64_sequoia: "ed9853d97df573875f4dbdd65fb96c3494252c477c2df485e769edb8fe106e8e"
     sha256 cellar: :any_skip_relocation, arm64_sonoma: "35696e383e25850ed00f91bd10daaafcdc539aa75ae8e952f1acea5f473f7c72"
   end
