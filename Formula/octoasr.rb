@@ -25,14 +25,16 @@ class Octoasr < Formula
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--upgrade", "pip"
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", buildpath
 
+    site_packages = Dir[venv/"lib/python*/site-packages"].first
+
     if cider_supported?
       system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==#{CIDER_VERSION}"
-      system venv/"bin/python3", "-c", "import importlib.util; assert importlib.util.find_spec('cider.lib._cider_prim')"
+      repair_cider_rpaths(site_packages)
+      system venv/"bin/python3", "-c", "import cider.lib._cider_prim"
     else
       ohai "Skipping optional Cider acceleration; requires macOS 26 on Apple Silicon"
     end
 
-    site_packages = Dir[venv/"lib/python*/site-packages"].first
     cp_r "core", site_packages
     cp_r "utils", site_packages
     cp "server.py", site_packages
@@ -83,5 +85,14 @@ class Octoasr < Formula
     OS.mac? &&
       MacOS.version.to_s.split(".").first.to_i >= 26 &&
       Hardware::CPU.arm?
+  end
+
+  def repair_cider_rpaths(site_packages)
+    cider_lib = Pathname(site_packages)/"cider/lib"
+    ["_cider_prim.cpython-312-darwin.so", "libcider_prim_lib.dylib"].each do |name|
+      binary = cider_lib/name
+      system "install_name_tool", "-add_rpath", "@loader_path/../../mlx/lib", binary
+      system "codesign", "--force", "--sign", "-", binary
+    end
   end
 end
