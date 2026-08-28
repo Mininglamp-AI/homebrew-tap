@@ -1,17 +1,24 @@
 class Octoasr < Formula
   CIDER_VERSION = "0.8.0.post1"
+  MLX_PACKAGES = %w[
+    mlx==0.32.0
+    mlx-metal==0.32.0
+    mlx-lm==0.31.3
+    mlx-audio==0.4.7
+    mlx-vlm==0.6.10
+  ].freeze
 
   desc "Local speech-to-text service powered by MLX, optimized for Apple Silicon"
   homepage "https://github.com/Mininglamp-AI/octoasr"
-  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.41.tar.gz"
-  sha256 "99b9fb8c62e5d9dd0aecd76701ba56f0f187403f64f99bc5f6b94a574d65bd53"
+  url "https://github.com/Mininglamp-AI/octoasr/archive/refs/tags/v0.1.42.tar.gz"
+  sha256 "578a767470e6ec267ad128c06d85ddd661261cf5a7291a07b16c732c43b1cef2"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.41"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4c176d4d8986faffbd50e6201928d3a2f118a6ecd631b31f725a6d9e740b191a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "9ca753988eafee9dd663fb5413234263e908af28e63ea43cb68a8b16233e8e67"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "48dc37eed62dc3afce3da183259582144a00c5cac894e9a665407a1a7c5551c4"
+    root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.42"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b979b896b0242217a9d5965774b60468dff5e2dd77d0bab76e24bcc54de73828"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "75db92884e2582959e48e8efc9c3e61005fbb1c0189d6288c3fb325d05661cd1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "1c1a811339d2e4c229263fefad390331d9bd1e18da0a6607f7e3eaa8ca6763c6"
   end
 
   depends_on "ffmpeg"
@@ -24,11 +31,13 @@ class Octoasr < Formula
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", venv
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "--upgrade", "pip"
     system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", buildpath
+    system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", *MLX_PACKAGES
 
     site_packages = Dir[venv/"lib/python*/site-packages"].first
 
     if cider_supported?
       system venv/"bin/pip", "install", "--retries", "3", "--timeout", "120", "mininglamp-cider==#{CIDER_VERSION}"
+      system venv/"bin/python3", "-m", "pip", "freeze"
       repair_cider_rpaths(site_packages)
       system venv/"bin/python3", "-c", "import cider.lib._cider_prim"
     else
@@ -39,10 +48,11 @@ class Octoasr < Formula
     cp_r "utils", site_packages
     cp "server.py", site_packages
 
-    # The @mention judge reads its system prompt from docs/prompt.txt.
-    # docs/ is not otherwise packaged, so copy just this file next to core/.
+    # The @mention judge reads versioned prompts from docs/mention_prompts/.
+    # Keep docs/prompt.txt as a fallback for custom/unknown mention models.
     (Pathname(site_packages)/"docs").mkpath
     cp "docs/prompt.txt", "#{site_packages}/docs/prompt.txt"
+    cp_r "docs/mention_prompts", "#{site_packages}/docs/mention_prompts"
 
     (bin/"octoasr").write <<~SH
       #!/bin/bash
@@ -76,7 +86,7 @@ class Octoasr < Formula
   end
 
   test do
-    assert_match "0.1.41", shell_output("#{bin}/octoasr --version")
+    assert_match "0.1.42", shell_output("#{bin}/octoasr --version")
   end
 
   private
