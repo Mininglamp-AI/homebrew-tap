@@ -16,8 +16,10 @@ class Octoasr < Formula
 
   bottle do
     root_url "https://github.com/Mininglamp-AI/octoasr/releases/download/v0.1.45"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7b2c4a31e0bec64aa63d01db5657465bf11b264e1cf88f11a06f076022a19e04"
+    # Keep newer bottles first so newer macOS releases without an exact bottle
+    # fall back to Tahoe (which includes Cider) instead of Sequoia.
     sha256 cellar: :any_skip_relocation, arm64_tahoe: "8d9095c6b3623284fa28bb22abf727a919f010138f3fa90adafec889cdf31374"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7b2c4a31e0bec64aa63d01db5657465bf11b264e1cf88f11a06f076022a19e04"
   end
 
   depends_on "ffmpeg"
